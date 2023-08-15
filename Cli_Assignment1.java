@@ -24,9 +24,9 @@ private static final Scanner SCANNER = new Scanner(System.in);
         String screen = DASHBOARD;
         String[] customernames = new String[0];
         String[] customerAccnums = new String[0];
-        double [] customerDeposits = new double[0];
+        double[] customerDeposits = new double[0];
         String name;
-        int initialeDeposite ;
+        double initialeDeposite ;
 
         do{
             System.out.println(CLEAR);
@@ -111,7 +111,26 @@ private static final Scanner SCANNER = new Scanner(System.in);
                         break;
         
                     }while(!validDepo);
-                    System.out.printf(SUCCESS_MSG,"A/C %s no %s has been successfully added....\n",accNumber,name);
+
+                    String [] newCustomernames = new String[customernames.length+1];
+                    String [] newCustomerAcnums = new String[customerAccnums.length+1];
+                    double [] newDeposites = new double[customerDeposits.length+1];
+
+                    for (int i = 0; i < customerDeposits.length; i++) {
+                        newCustomernames[i] = customernames[i];
+                        newCustomerAcnums[i] = customerAccnums[i];
+                        newDeposites[i] = customerDeposits [i];
+                    }
+                    newCustomerAcnums[newCustomerAcnums.length-1] = accNumber;
+                    newCustomernames[newCustomernames.length-1] = name;
+                    newDeposites[newDeposites.length-1] = initialeDeposite;
+
+                    customernames = newCustomernames;
+                    customerAccnums = newCustomerAcnums;
+                    customerDeposits = newDeposites;
+
+
+                    System.out.printf(SUCCESS_MSG,"A/C-"+ accNumber +"," + name +" has been \n\tsuccessfully added....\n",accNumber,name);
                     System.out.print("Do you want add another Account (Y/n)?");
                     if(SCANNER.nextLine().strip().toUpperCase().equals("Y")){
                         continue;
